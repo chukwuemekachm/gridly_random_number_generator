@@ -13,6 +13,8 @@ export interface ModalProps {
   displayNumbers: boolean;
   count: number;
   numbers: number[];
+  handleNumbersSort: () => void;
+  sort: string;
 }
 
 export function Modal(props: ModalProps) {
@@ -23,13 +25,15 @@ export function Modal(props: ModalProps) {
     count,
     numbers,
     displayNumbers,
+    handleNumbersSort,
+    sort,
   } = props;
 
   return (
     <Modal.Container>
       <Modal.Inner>
         <Modal.Header>
-          <h4>GENERATE NUMBERS</h4>
+          <h4>GRIDLY</h4>
           <span onClick={handleToggleModal}>&times;</span>
         </Modal.Header>
         <Modal.Body>
@@ -37,6 +41,8 @@ export function Modal(props: ModalProps) {
             displayNumbers
               ? <Numbers
                 numbers={numbers}
+                handleNumbersSort={handleNumbersSort}
+                sort={sort}
               />
               : <GenerateNumber
                 handleChange={handleChange}

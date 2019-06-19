@@ -10,10 +10,15 @@ const numbers = [
   7053983014,
   7055009496,
 ];
+const props = {
+  numbers,
+  handleNumbersSort: jest.fn(),
+  sort: 'ASC',
+};
 
 describe('Numbers', function () {
   test('should mount the Numbers component without errors', async function () {
-    const wrapper = mount(<Numbers numbers={numbers} />);
+    const wrapper = mount(<Numbers {...props} />);
     expect(wrapper).toBeDefined();
   });
 });
