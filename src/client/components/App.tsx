@@ -15,6 +15,8 @@ export interface AppState {
   displayNumbers: boolean;
   count: number;
   numbers: number[];
+  sortNumbers: number[];
+  sort: string;
 }
 
 export class App extends React.Component<AppProps, AppState> {
@@ -23,6 +25,8 @@ export class App extends React.Component<AppProps, AppState> {
     displayNumbers: true,
     count: 0,
     numbers: [],
+    sortNumbers: [],
+    sort: 'DESC',
   };
 
   handleToggleModal = () => this
@@ -39,6 +43,20 @@ export class App extends React.Component<AppProps, AppState> {
     return this.setState({ displayNumbers: false });
   }
 
+  handleNumbersSort = () => {
+    const { sort, numbers } = this.state;
+    if (sort === 'DESC') {
+      return this.setState({
+        sort: 'ASC',
+        sortNumbers: numbers.reverse(),
+      });
+    }
+    return this.setState({
+      sort: 'DESC',
+      sortNumbers: numbers.sort(),
+    });
+  }
+
   handleGenerateNumbers = async () => {
     let { count } = this.state;
     if (count > 500) return false;
@@ -53,7 +71,7 @@ export class App extends React.Component<AppProps, AppState> {
   handleChange = ({ target: { value } }) => this.setState({ count: value });
 
   render() {
-    const { displayModal, count, displayNumbers, numbers } = this.state;
+    const { displayModal, count, displayNumbers, numbers, sort } = this.state;
 
     return (
       <div>
@@ -75,6 +93,8 @@ export class App extends React.Component<AppProps, AppState> {
               numbers={numbers}
               handleDisplayGenerateNumbersModal={this.handleDisplayGenerateNumbersModal}
               handleDisplayNumbersModal={this.handleDisplayNumbersModal}
+              handleNumbersSort={this.handleNumbersSort}
+              sort={sort}
             />
             : ''
         }

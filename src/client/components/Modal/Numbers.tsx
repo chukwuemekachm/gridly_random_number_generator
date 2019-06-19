@@ -2,13 +2,14 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { Button } from '../Button/Button';
-import { number } from 'prop-types';
 
 export interface NumbersProp {
   numbers: number[];
+  handleNumbersSort: () => void;
+  sort: string;
 }
 
-export function Numbers({ numbers }: NumbersProp) {
+export function Numbers({ numbers, handleNumbersSort, sort }: NumbersProp) {
   return (
     <Numbers.Container>
       <div>
@@ -16,7 +17,14 @@ export function Numbers({ numbers }: NumbersProp) {
           numbers.map(number => <span key={number}>{number}</span>)
         }
       </div>
-      <h4>{numbers.length} numbers</h4>
+      <h4>
+        <span>{numbers.length} numbers</span>
+      </h4>
+      <h4>
+        <span>Minimum number: {Math.min(...numbers)}</span>
+        <Button size="small" handleClick={handleNumbersSort}>{`Sort ${sort}`}</Button>
+        <span>Maximum number: {Math.max(...numbers)}</span>
+      </h4>
     </Numbers.Container>
   )
 }
@@ -46,5 +54,15 @@ Numbers.Container = styled.section`
 
   button {
     margin: 1em 0;
+  }
+
+  h4:nth-child(2) {
+    margin-bottom: none;
+  }
+
+  h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 `;

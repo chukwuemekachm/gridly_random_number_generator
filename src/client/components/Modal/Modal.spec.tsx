@@ -14,6 +14,8 @@ const props = {
   handleDisplayNumbersModal: jest.fn(),
   displayNumbers: false,
   numbers: [],
+  handleNumbersSort: jest.fn(),
+  sort: 'ASC',
 };
 
 describe('Modal', function () {

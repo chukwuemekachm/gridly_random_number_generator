@@ -57,4 +57,24 @@ describe('App.tsx', function() {
     expect(instance.state['displayNumbers']).toBeTruthy();
     expect(instance.state['numbers']).toEqual(numbers);
   });
+
+  test('should sort the numbers', async function() {
+    const wrapper = mount(<App />);
+    const instance = wrapper.instance();
+
+    instance.state['numbers'] = numbers;
+    await instance['handleNumbersSort']();
+    expect(instance.state['sort']).toEqual('ASC');
+
+    await instance['handleNumbersSort']();
+    expect(instance.state['sort']).toEqual('DESC');
+  });
+
+  test('should handle input change', async function() {
+    const wrapper = mount(<App />);
+    const instance = wrapper.instance();
+
+    await instance['handleChange']({ target: { value: 50 } });
+    expect(instance.state['count']).toEqual(50);
+  });
 });
